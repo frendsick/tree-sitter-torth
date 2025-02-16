@@ -34,6 +34,35 @@ module.exports = grammar({
     literal_str: () => /"[\s\S]*?"/,
     literal_fstr: () => /f"[\s\S]*?"/,
 
+    intrinsic: ($) =>
+      choice(
+        $.binary_operator,
+        /argc/i,
+        /argv/i,
+        /drop/i,
+        /dup/i,
+        /envp/i,
+        /exec/i,
+        /load_byte/i,
+        /load_word/i,
+        /load_dword/i,
+        /load_qword/i,
+        /over/i,
+        /rot/i,
+        /store_byte/i,
+        /store_word/i,
+        /store_dword/i,
+        /store_qword/i,
+        /swap/i,
+        /syscall0/i,
+        /syscall1/i,
+        /syscall2/i,
+        /syscall3/i,
+        /syscall4/i,
+        /syscall5/i,
+        /syscall6/i,
+      ),
+
     binary_operator: () =>
       choice(
         /plus/i,

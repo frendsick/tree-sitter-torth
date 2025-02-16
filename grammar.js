@@ -123,6 +123,7 @@ module.exports = grammar({
         /break/i,
         /continue/i,
         /done/i,
+        /return/i,
       ),
 
     // TODO: Body of each section

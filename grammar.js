@@ -97,5 +97,18 @@ module.exports = grammar({
         "||",
         /not/i,
       ),
+
+    control_flow: () =>
+      choice(
+        /if/i,
+        /elif/i,
+        /else/i,
+        /endif/i,
+        /do/i,
+        /while/i,
+        /break/i,
+        /continue/i,
+        /done/i,
+      ),
   },
 });

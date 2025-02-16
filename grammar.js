@@ -23,7 +23,22 @@ module.exports = grammar({
       ),
 
     function_definition: ($) =>
-      seq(/function/i, $.identifier, ":", $.function_body, /end/i),
+      seq(
+        /function/i,
+        $.function_signature,
+        ":",
+        $.function_body,
+        /end/i,
+      ),
+    function_signature: ($) =>
+      seq(
+        $.identifier, // Function name
+        optional($.function_parameters),
+        optional(seq("->", $.function_return_types)),
+      ),
+    function_parameters: ($) => repeat1($.identifier),
+    function_return_types: ($) => repeat1($.identifier),
+    function_body: ($) => repeat1(choice($.operation, $.comment_definition)),
 
     comment_definition: () => token(seq("//", repeat(/[^\n]/))),
 
@@ -33,8 +48,6 @@ module.exports = grammar({
       seq(/enum/i, $.identifier, $.number, ":", repeat($.identifier), /end/i),
 
     include_definition: ($) => seq(/include/i, $.literal_str),
-
-    function_body: ($) => repeat1(choice($.operation, $.comment_definition)),
 
     identifier: () => /\S+/,
     number: () => /\d+/,

@@ -11,7 +11,12 @@ module.exports = grammar({
   name: "torth",
 
   rules: {
-    // TODO: add the actual grammar rules
-    source_file: $ => "hello"
-  }
+    source_file: ($) => repeat($._definition),
+
+    _definition: ($) => choice($.function_definition),
+
+    function_definition: ($) => seq("function", $.identifier, ":", "end"),
+
+    identifier: $ => /\S+/,
+  },
 });

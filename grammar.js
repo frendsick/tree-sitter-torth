@@ -14,7 +14,12 @@ module.exports = grammar({
     source_file: ($) => repeat($._definition),
 
     _definition: ($) =>
-      choice($.function_definition, $.const_definition, $.enum_definition),
+      choice(
+        $.const_definition,
+        $.enum_definition,
+        $.function_definition,
+        $.include_definition,
+      ),
 
     function_definition: ($) =>
       seq(/function/i, $.identifier, ":", $.function_body, /end/i),
@@ -23,6 +28,8 @@ module.exports = grammar({
 
     enum_definition: ($) =>
       seq(/enum/i, $.identifier, $.number, ":", repeat($.identifier), /end/i),
+
+    include_definition: ($) => seq(/include/i, $.literal_str),
 
     function_body: ($) =>
       repeat1(choice($.operation, $.if_block, $.while_block)),

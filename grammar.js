@@ -50,8 +50,8 @@ module.exports = grammar({
     literal_bool: () => /true|false/i,
     literal_char: () => /'.'/,
     literal_int: ($) => $.number,
-    literal_str: () => /"[\s\S]*?"/,
-    literal_fstr: () => /f"[\s\S]*?"/,
+    literal_str: () => seq('"', repeat(/[^"]/), '"'),
+    literal_fstr: ($) => seq("f", $.literal_str),
 
     intrinsic: ($) =>
       choice(

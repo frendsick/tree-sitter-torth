@@ -110,5 +110,15 @@ module.exports = grammar({
         /continue/i,
         /done/i,
       ),
+
+    // TODO: Body of each section
+    if_block: () =>
+      seq(
+        /if/i,
+        /do/i,
+        repeat(seq(/elif/i, /do/i)),
+        optional(/else/i),
+        /endif/i,
+      ),
   },
 });

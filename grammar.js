@@ -16,7 +16,7 @@ module.exports = grammar({
     _definition: ($) => choice($.function_definition),
 
     function_definition: ($) =>
-      seq("function", $.identifier, ":", $.function_body, "end"),
+      seq(/function/i, $.identifier, ":", $.function_body, /end/i),
 
     function_body: ($) => repeat1(
       choice(

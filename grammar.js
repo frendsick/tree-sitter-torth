@@ -23,13 +23,7 @@ module.exports = grammar({
       ),
 
     function_definition: ($) =>
-      seq(
-        /function/i,
-        $.function_signature,
-        ":",
-        $.function_body,
-        /end/i,
-      ),
+      seq(/function/i, $.function_signature, ":", $.function_body, /end/i),
     function_signature: ($) =>
       seq(
         $.identifier, // Function name

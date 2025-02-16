@@ -17,6 +17,21 @@ module.exports = grammar({
 
     function_definition: ($) => seq("function", $.identifier, ":", "end"),
 
-    identifier: $ => /\S+/,
+    literal: ($) =>
+      choice(
+        $.literal_bool,
+        $.literal_char,
+        $.literal_int,
+        $.literal_str,
+        $.literal_fstr,
+      ),
+    literal_bool: () => /true|false/i,
+    literal_char: () => /'.'/,
+    literal_int: ($) => $.number,
+    literal_str: () => /"[\s\S]*?"/,
+    literal_fstr: () => /f"[\s\S]*?"/,
+
+    identifier: () => /\S+/,
+    number: () => /\d+/,
   },
 });

@@ -13,10 +13,12 @@ module.exports = grammar({
   rules: {
     source_file: ($) => repeat($._definition),
 
-    _definition: ($) => choice($.function_definition),
+    _definition: ($) => choice($.function_definition, $.const_definition),
 
     function_definition: ($) =>
       seq(/function/i, $.identifier, ":", $.function_body, /end/i),
+
+    const_definition: ($) => seq(/const/i, $.identifier, $.literal, /end/i),
 
     function_body: ($) => repeat1(
       choice(

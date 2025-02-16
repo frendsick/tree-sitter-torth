@@ -68,8 +68,8 @@ module.exports = grammar({
     literal_bool: () => /true|false/i,
     literal_char: () => /'.'/,
     literal_int: ($) => $.number,
-    literal_str: () => seq('"', repeat(/[^"]/), '"'),
-    literal_fstr: ($) => seq("f", $.literal_str),
+    literal_str: () => token(seq('"', repeat(/[^"]/), '"')),
+    literal_fstr: () => token(seq('f"', repeat(/[^"]/), '"')),
 
     intrinsic: ($) =>
       choice(

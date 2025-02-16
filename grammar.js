@@ -34,15 +34,12 @@ module.exports = grammar({
 
     include_definition: ($) => seq(/include/i, $.literal_str),
 
-    function_body: ($) =>
-      repeat1(
-        choice($.operation, $.if_block, $.while_block, $.comment_definition),
-      ),
+    function_body: ($) => repeat1(choice($.operation, $.comment_definition)),
 
     identifier: () => /\S+/,
     number: () => /\d+/,
 
-    operation: ($) => choice($.literal, $.intrinsic),
+    operation: ($) => choice($.literal, $.intrinsic, $.identifier),
 
     literal: ($) =>
       choice(
@@ -134,26 +131,6 @@ module.exports = grammar({
         /continue/i,
         /done/i,
         /return/i,
-      ),
-
-    // TODO: Body of each section
-    if_block: () =>
-      seq(
-        /if/i,
-        // TODO: Condition
-        /do/i,
-        repeat(seq(/elif/i, /do/i)),
-        optional(/else/i),
-        /endif/i,
-      ),
-
-    while_block: () =>
-      seq(
-        /while/i,
-        // TODO: Condition
-        /do/i,
-        // TODO: Body of the `while` loop
-        /done/i,
       ),
   },
 });

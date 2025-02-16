@@ -55,12 +55,15 @@ module.exports = grammar({
     operation: ($) => choice($.literal, $.intrinsic, $.identifier),
 
     literal: ($) =>
-      choice(
-        $.literal_bool,
-        $.literal_char,
-        $.literal_int,
-        $.literal_str,
-        $.literal_fstr,
+      prec(
+        1,
+        choice(
+          $.literal_bool,
+          $.literal_char,
+          $.literal_int,
+          $.literal_str,
+          $.literal_fstr,
+        ),
       ),
     literal_bool: () => /true|false/i,
     literal_char: () => /'.'/,

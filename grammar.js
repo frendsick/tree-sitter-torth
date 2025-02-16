@@ -15,10 +15,24 @@ module.exports = grammar({
 
     _definition: ($) => choice($.function_definition),
 
-    function_definition: ($) => seq("function", $.identifier, ":", "end"),
+    function_definition: ($) =>
+      seq("function", $.identifier, ":", $.function_body, "end"),
+
+    function_body: ($) => repeat1(
+      choice(
+        $.operation,
+        $.if_block,
+        $.while_block,
+      )
+    ),
 
     identifier: () => /\S+/,
     number: () => /\d+/,
+
+    operation: ($) => choice(
+      $.literal,
+      $.intrinsic,
+    ),
 
     literal: ($) =>
       choice(

@@ -115,10 +115,20 @@ module.exports = grammar({
     if_block: () =>
       seq(
         /if/i,
+        // TODO: Condition
         /do/i,
         repeat(seq(/elif/i, /do/i)),
         optional(/else/i),
         /endif/i,
+      ),
+
+    while_block: () =>
+      seq(
+        /while/i,
+        // TODO: Condition
+        /do/i,
+        // TODO: Body of the `while` loop
+        /done/i,
       ),
   },
 });

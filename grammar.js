@@ -17,6 +17,9 @@ module.exports = grammar({
 
     function_definition: ($) => seq("function", $.identifier, ":", "end"),
 
+    identifier: () => /\S+/,
+    number: () => /\d+/,
+
     literal: ($) =>
       choice(
         $.literal_bool,
@@ -31,7 +34,39 @@ module.exports = grammar({
     literal_str: () => /"[\s\S]*?"/,
     literal_fstr: () => /f"[\s\S]*?"/,
 
-    identifier: () => /\S+/,
-    number: () => /\d+/,
+    binary_operator: () =>
+      choice(
+        /plus/i,
+        "+",
+        /minus/i,
+        "-",
+        /mul/i,
+        "*",
+        /div/i,
+        "/",
+        /mod/i,
+        "%",
+        /gt/i,
+        ">",
+        /lt/i,
+        "<",
+        /eq/i,
+        "==",
+        /ne/i,
+        "!=",
+        /ge/i,
+        ">=",
+        /le/i,
+        "<=",
+        /shl/i,
+        ">>",
+        /le/i,
+        "<<",
+        /and/i,
+        "&&",
+        /or/i,
+        "||",
+        /not/i,
+      ),
   },
 });
